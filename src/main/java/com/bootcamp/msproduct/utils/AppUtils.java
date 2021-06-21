@@ -6,6 +6,9 @@ import org.springframework.beans.BeanUtils;
 
 public class AppUtils {
 
+    private AppUtils() {
+    }
+
     public static ProductDTO entityToDTO(Product product) {
         ProductDTO productDTO = new ProductDTO();
         BeanUtils.copyProperties(product, productDTO);
