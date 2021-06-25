@@ -11,8 +11,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@RestController
 @Slf4j
+@RestController
 @RequestMapping("/products")
 public class ProductController {
     @Autowired

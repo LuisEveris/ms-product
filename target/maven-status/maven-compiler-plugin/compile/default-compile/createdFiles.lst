@@ -1,0 +1,7 @@
+com\bootcamp\msproduct\entity\Product.class
+com\bootcamp\msproduct\service\ProductService.class
+com\bootcamp\msproduct\repository\ProductRepository.class
+com\bootcamp\msproduct\web\ProductController.class
+com\bootcamp\msproduct\MsProductApplication.class
+com\bootcamp\msproduct\utils\AppUtils.class
+com\bootcamp\msproduct\dto\ProductDTO.class
