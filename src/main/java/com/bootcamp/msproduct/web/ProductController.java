@@ -18,6 +18,12 @@ public class ProductController {
     @Autowired
     ProductService service;
 
+    @GetMapping("/hello")
+    public Mono<String> Hello() {
+        log.info("printing hello");
+        return Mono.just("hello hans");
+    }
+
     @GetMapping
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
