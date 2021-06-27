@@ -19,13 +19,13 @@ public class ProductController {
     @Autowired
     ProductService service;
 
-    @Value("${spring.data.mongodb.port}")
-    String value;
+    /*@Value("${spring.data.mongodb.port}")
+    String value;*/
 
     @GetMapping("/hello")
     public Mono<String> Hello() {
         log.info("printing hello");
-        return Mono.just("hello hans" + value);
+        return Mono.just("hello hans" /*+ value*/);
     }
 
     @GetMapping
