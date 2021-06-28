@@ -4,7 +4,6 @@ import com.bootcamp.msproduct.dto.ProductDTO;
 import com.bootcamp.msproduct.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +17,6 @@ import reactor.core.publisher.Mono;
 public class ProductController {
     @Autowired
     ProductService service;
-
-    /*@Value("${spring.data.mongodb.port}")
-    String value;*/
-
-    @GetMapping("/hello")
-    public Mono<String> Hello() {
-        log.info("printing hello");
-        return Mono.just("hello hans" /*+ value*/);
-    }
 
     @GetMapping
     public Flux<ProductDTO> allProducts() {
