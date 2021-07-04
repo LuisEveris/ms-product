@@ -5,6 +5,7 @@ import com.bootcamp.msproduct.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -18,13 +19,13 @@ public class ProductController {
     @Autowired
     ProductService service;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
         return service.getAllProducts();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Mono<ResponseEntity<ProductDTO>> getProduct(@PathVariable Integer id) {
         log.info("getting a product by Id {}", id);
         return service.getProduct(id)

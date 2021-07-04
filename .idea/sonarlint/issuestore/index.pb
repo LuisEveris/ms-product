@@ -1,23 +1,9 @@
 
-v
-Fsrc/main/java/com/bootcamp/msproduct/repository/ProductRepository.java,9\4\9411e8ae48524609812e36b804517ad20658f119
+n
+>src/main/java/com/bootcamp/msproduct/MsProductApplication.java,9\7\9702a063724c9ca2f8074c5a6b07671348bd58ef
 p
 @src/main/java/com/bootcamp/msproduct/service/ProductService.java,a\4\a4416e6c8abd903a4511138ca2e12c6f72ac672d
-f
-6.idea/libraries/Maven__com_google_guava_guava_19_0.xml,9\8\9820e255363a8ed216da64c6f0c38a465a2d02e5
 h
 8src/main/java/com/bootcamp/msproduct/utils/AppUtils.java,d\e\de0961a62781d37e435fde6e1492eb157d960c61
-h
-8src/main/java/com/bootcamp/msproduct/entity/Product.java,0\2\0274d769c0a54ada4f7197fdc1092e83fec08e9d
-q
-A.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_3_2_1.xml,8\b\8bab5e10bc56195074712b121010b73d138d97ca
-ƒ
-S.idea/libraries/Maven__org_sonarsource_scanner_api_sonar_scanner_api_2_16_1_361.xml,e\2\e26be806a92890afd3babd2c52a29bec425ecfeb
-†
-V.idea/libraries/Maven__org_sonarsource_scanner_maven_sonar_maven_plugin_3_9_0_2155.xml,6\9\69f465a0c318084e34261abc1eebaeeb68e13ce8
-p
-@.idea/libraries/Maven__org_sonatype_plexus_plexus_cipher_1_4.xml,0\6\0604c6775320884c8280cf92f6435c214f8dfb6d
-x
-H.idea/libraries/Maven__org_sonatype_plexus_plexus_sec_dispatcher_1_4.xml,3\d\3d3d73c2d18edc954098ad08e77a7f3708101004
->
-ms-product.iml,0\7\07cb566eb9175ffce0d595b206e27d84db8f54d5
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec

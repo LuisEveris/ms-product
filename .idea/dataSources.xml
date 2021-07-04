@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="@ProductMongoAzure" uuid="2bda1697-5680-4eca-8f71-34d0863f45f8">
+      <driver-ref>mongo</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
+      <jdbc-url>mongodb://mongodblel:6e5jWrBE8bEPmS6ZS1hiJ4zEeHsRQe72H9r733HqxUXZUsledeTb3cO0d95WyClPUzPjLLw1lX7ZtjW0PvezBA==@mongodblel.mongo.cosmos.azure.com:10255/product?ssl=true&amp;replicaSet=globaldb&amp;retrywrites=false&amp;maxIdleTimeMS=120000&amp;appName=@mongodblel@</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
