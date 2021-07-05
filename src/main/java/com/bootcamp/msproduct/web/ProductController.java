@@ -13,8 +13,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
-
 @Slf4j
 @RestController
 @RequestMapping("/products")
@@ -26,10 +24,10 @@ public class ProductController {
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
-        return service.getAllProducts().delaySequence(Duration.ofMillis(500));
+        return service.getAllProducts();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_NDJSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Mono<ResponseEntity<ProductDTO>> getProduct(@PathVariable Integer id) {
         log.info("getting a product by Id {}", id);
         return service.getProduct(id)
