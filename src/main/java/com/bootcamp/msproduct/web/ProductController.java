@@ -26,7 +26,7 @@ public class ProductController {
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
-        return service.getAllProducts().delaySequence(Duration.ofSeconds(3));
+        return service.getAllProducts().delaySequence(Duration.ofMillis(500));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_NDJSON_VALUE)
