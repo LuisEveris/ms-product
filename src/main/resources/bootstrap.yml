@@ -1,7 +1,7 @@
 resilience4j:
   circuitbreaker:
     instances:
-      allProductFallBack:
+      allProductFallBackMethod:
         registerHealthIndicator: true
         eventConsumerBufferSize: 10
         automaticTransitionFromOpenToHalfOpenEnabled: true

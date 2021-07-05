@@ -20,7 +20,7 @@ public class ProductController {
     @Autowired
     ProductService service;
 
-    @CircuitBreaker(name = "allProductFallBack", fallbackMethod = "allProductFallBackMethod")
+//    @CircuitBreaker(name = "allProductFallBackMethod", fallbackMethod = "allProductFallBackMethod")
     @GetMapping(produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
