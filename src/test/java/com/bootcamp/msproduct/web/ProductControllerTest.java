@@ -5,6 +5,7 @@ import com.bootcamp.msproduct.entity.Product;
 import com.bootcamp.msproduct.repository.ProductRepository;
 import com.bootcamp.msproduct.service.ProductService;
 import com.bootcamp.msproduct.utils.AppUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -31,7 +32,7 @@ class ProductControllerTest {
 
     @Autowired
     private WebTestClient webClient;
-
+    @Disabled
     @Test
     void testCreateProduct() {
         Product product = AppUtils.dtoToEntity(new ProductDTO(1, "Luis", "pasivo"));
