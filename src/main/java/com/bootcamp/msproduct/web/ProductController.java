@@ -21,13 +21,13 @@ public class ProductController {
     ProductService service;
 
     @CircuitBreaker(name = "allProductFallBack", fallbackMethod = "allProductFallBackMethod")
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
         return service.getAllProducts();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Mono<ResponseEntity<ProductDTO>> getProduct(@PathVariable Integer id) {
         log.info("getting a product by Id {}", id);
         return service.getProduct(id)
@@ -58,9 +58,11 @@ public class ProductController {
     }
     //fallbacks
 
-    public Mono<ResponseEntity<String>> allProductFallBackMethod() {
-        return Mono.just("Cannot get all products now, try later, please.")
-                .map(ResponseEntity::ok);
+    public Mono<ResponseEntity<String>> allProductFallBackMethod(Exception e) {
+        log.info("FallBackMethod");
+        return Mono.just("Service is down. Please, try later." +
+                "\nSend this message to the administrator"+e.getMessage())
+                .map(p-> new ResponseEntity<>(p, HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
 }
