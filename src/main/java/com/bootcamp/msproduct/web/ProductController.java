@@ -2,6 +2,7 @@ package com.bootcamp.msproduct.web;
 
 import com.bootcamp.msproduct.dto.ProductDTO;
 import com.bootcamp.msproduct.service.ProductService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Slf4j
 @RestController
 @RequestMapping("/products")
@@ -19,13 +22,14 @@ public class ProductController {
     @Autowired
     ProductService service;
 
-    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @CircuitBreaker(name = "allProductFallBack", fallbackMethod = "allProductFallBackMethod")
+    @GetMapping(produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
-        return service.getAllProducts();
+        return service.getAllProducts().delaySequence(Duration.ofSeconds(3));
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Mono<ResponseEntity<ProductDTO>> getProduct(@PathVariable Integer id) {
         log.info("getting a product by Id {}", id);
         return service.getProduct(id)
@@ -54,4 +58,11 @@ public class ProductController {
         return service.deleteProduct(id)
                 .map(ResponseEntity::ok);
     }
+    //fallbacks
+
+    public Mono<ResponseEntity<String>> allProductFallBackMethod() {
+        return Mono.just("Cannot get all products now, try later, please.")
+                .map(ResponseEntity::ok);
+    }
+
 }
