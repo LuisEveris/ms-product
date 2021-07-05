@@ -21,13 +21,13 @@ public class ProductController {
     ProductService service;
 
     @CircuitBreaker(name = "allProductFallBack", fallbackMethod = "allProductFallBackMethod")
-    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
         return service.getAllProducts();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<ProductDTO>> getProduct(@PathVariable Integer id) {
         log.info("getting a product by Id {}", id);
         return service.getProduct(id)

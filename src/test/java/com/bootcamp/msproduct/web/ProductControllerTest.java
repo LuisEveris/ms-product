@@ -32,7 +32,7 @@ class ProductControllerTest {
 
     @Autowired
     private WebTestClient webClient;
-    @Disabled
+
     @Test
     void testCreateProduct() {
         Product product = AppUtils.dtoToEntity(new ProductDTO(1, "Luis", "pasivo"));
