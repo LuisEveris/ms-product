@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.BodyInserters;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.mockito.Mockito.times;
@@ -29,24 +29,38 @@ class ProductControllerTest {
     @MockBean
     ProductRepository repository;
 
-    @Autowired
-    private WebTestClient webClient;
+        @Autowired
+        private WebTestClient webClient;
 
-    @Disabled
-    @Test
-    void testCreateProduct() {
-        Product product = AppUtils.dtoToEntity(new ProductDTO(1, "Luis", "pasivo"));
+        @Test
+        void testGetProduct() {
+            ProductDTO productDTO = new ProductDTO(1, "cuenta de ahorro", "pasivo");
+            Mockito.when(repository.findAll())
+                    .thenReturn(Flux.just(productDTO).map(AppUtils::dtoToEntity));
 
-        Mockito.when(repository.save(product)).thenReturn(Mono.just(product));
+            webClient.get()
+                    .uri("/products")
+                    .accept(MediaType.APPLICATION_NDJSON)
+                    .exchange()
+                    .expectStatus()
+                    .isOk();
+        }
+
+        @Test
+        void testCreateProduct() {
+            ProductDTO productDTO = new ProductDTO(1, "Luis", "pasivo");
+            Mono<ProductDTO> productDTOMono = Mono.just(productDTO);
+
+            Mockito.when(repository.insert(AppUtils.dtoToEntity(productDTO)))
+                    .thenReturn(Mono.just(AppUtils.dtoToEntity(productDTO)));
 
         webClient.post()
-                .uri("/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(product))
+                .uri("/products")
+                .body(productDTOMono, ProductDTO.class)
                 .exchange()
-                .expectStatus().isCreated();
+                .expectStatus().isOk();
 
-        Mockito.verify(repository, times(1)).save(product);
+        Mockito.verify(repository, times(1)).insert(AppUtils.dtoToEntity(productDTO));
     }
 
 }
