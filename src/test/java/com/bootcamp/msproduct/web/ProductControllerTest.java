@@ -1,11 +1,9 @@
 package com.bootcamp.msproduct.web;
 
 import com.bootcamp.msproduct.dto.ProductDTO;
-import com.bootcamp.msproduct.entity.Product;
 import com.bootcamp.msproduct.repository.ProductRepository;
 import com.bootcamp.msproduct.service.ProductService;
 import com.bootcamp.msproduct.utils.AppUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -29,30 +27,29 @@ class ProductControllerTest {
     @MockBean
     ProductRepository repository;
 
-        @Autowired
-        private WebTestClient webClient;
+    @Autowired
+    private WebTestClient webClient;
 
-        @Test
-        void testGetProduct() {
-            ProductDTO productDTO = new ProductDTO(1, "cuenta de ahorro", "pasivo");
-            Mockito.when(repository.findAll())
-                    .thenReturn(Flux.just(productDTO).map(AppUtils::dtoToEntity));
+    @Test
+    void testGetProducts() {
+        ProductDTO productDTO = new ProductDTO(1, "cuenta de ahorro", "pasivo");
+        Mockito.when(repository.findAll())
+                .thenReturn(Flux.just(productDTO).map(AppUtils::dtoToEntity));
 
-            webClient.get()
-                    .uri("/products")
-                    .accept(MediaType.APPLICATION_NDJSON)
-                    .exchange()
-                    .expectStatus()
-                    .isOk();
-        }
+        webClient.get()
+                .uri("/products")
+                .accept(MediaType.APPLICATION_NDJSON)
+                .exchange()
+                .expectStatus().isOk();
+    }
 
-        @Test
-        void testCreateProduct() {
-            ProductDTO productDTO = new ProductDTO(1, "Luis", "pasivo");
-            Mono<ProductDTO> productDTOMono = Mono.just(productDTO);
+    @Test
+    void testCreateProduct() {
+        ProductDTO productDTO = new ProductDTO(1, "Luis", "pasivo");
+        Mono<ProductDTO> productDTOMono = Mono.just(productDTO);
 
-            Mockito.when(repository.insert(AppUtils.dtoToEntity(productDTO)))
-                    .thenReturn(Mono.just(AppUtils.dtoToEntity(productDTO)));
+        Mockito.when(repository.insert(AppUtils.dtoToEntity(productDTO)))
+                .thenReturn(Mono.just(AppUtils.dtoToEntity(productDTO)));
 
         webClient.post()
                 .uri("/products")
