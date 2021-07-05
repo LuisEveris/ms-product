@@ -21,7 +21,7 @@ public class ProductController {
     ProductService service;
 
 //    @CircuitBreaker(name = "allProductFallBackMethod", fallbackMethod = "allProductFallBackMethod")
-    @GetMapping(produces = MediaType.APPLICATION_NDJSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
         return service.getAllProducts();
