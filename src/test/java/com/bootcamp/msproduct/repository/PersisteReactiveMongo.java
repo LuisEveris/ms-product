@@ -1,4 +1,4 @@
-package com.bootcamp.msproduct.product;
+package com.bootcamp.msproduct.repository;
 
 import com.bootcamp.msproduct.dto.ProductDTO;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
-class ProductControllerTest {
+class PersisteReactiveMongo {
     @Autowired
     private ReactiveMongoTemplate reactiveMongoTemplate;
 
