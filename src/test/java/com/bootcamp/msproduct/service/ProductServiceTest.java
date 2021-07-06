@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -25,9 +26,18 @@ class ProductServiceTest {
 
     @Test
     void getAllProducts() {
+        ProductDTO productDTO1 = new ProductDTO(1, "name1", "type1");
+        ProductDTO productDTO2 = new ProductDTO(2, "name2", "type2");
 
+        Mockito.when(repository.findAll())
+                .thenReturn(Flux.just(productDTO1,productDTO2).map(AppUtils::dtoToEntity));
 
+        Flux<ProductDTO> allProducts = service.getAllProducts();
 
+        StepVerifier.create(allProducts)
+                .expectNext(productDTO1,productDTO2)
+                .verifyComplete()
+        ;
     }
 
     @Test
