@@ -2,7 +2,7 @@ package com.bootcamp.msproduct.web;
 
 import com.bootcamp.msproduct.dto.ProductDTO;
 import com.bootcamp.msproduct.service.ProductService;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import com.bootcamp.msproduct.topic.ProductProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +19,9 @@ import reactor.core.publisher.Mono;
 public class ProductController {
     @Autowired
     ProductService service;
+
+    @Autowired
+    private ProductProducer producer;
 
 //    @CircuitBreaker(name = "allProductFallBackMethod", fallbackMethod = "allProductFallBackMethod")
     @GetMapping(produces = MediaType.APPLICATION_NDJSON_VALUE)
@@ -39,7 +42,10 @@ public class ProductController {
     public Mono<ResponseEntity<ProductDTO>> saveProduct(@RequestBody Mono<ProductDTO> productDTOMono) {
         log.info("saving a new product {}", productDTOMono);
         return service.saveProduct(productDTOMono)
-                .map(ResponseEntity::ok);
+                .map(product -> {
+                    producer.sendProductToTopic(product);
+                    return ResponseEntity.ok(product);
+                });
     }
 
     @PutMapping("update/{id}")
