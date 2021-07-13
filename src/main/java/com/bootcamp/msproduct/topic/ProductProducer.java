@@ -1,6 +1,6 @@
 package com.bootcamp.msproduct.topic;
 
-import com.bootcamp.msproduct.dto.ProductDTO;
+import com.bootcamp.msproduct.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ public class ProductProducer {
 
     public static final String PRODUCT_TOPIC = "product-topic";
 
-    public void sendProductToTopic(ProductDTO data) {
+    public void sendProductToTopic(Product data) {
         kafkaTemplate.send(PRODUCT_TOPIC, data);
     }
 

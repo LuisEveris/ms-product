@@ -3,6 +3,7 @@ package com.bootcamp.msproduct.web;
 import com.bootcamp.msproduct.dto.ProductDTO;
 import com.bootcamp.msproduct.service.ProductService;
 import com.bootcamp.msproduct.topic.ProductProducer;
+import com.bootcamp.msproduct.utils.AppUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class ProductController {
         log.info("saving a new product {}", productDTOMono);
         return service.saveProduct(productDTOMono)
                 .map(product -> {
-                    producer.sendProductToTopic(product);
+                    producer.sendProductToTopic(AppUtils.dtoToEntity(product));
                     return ResponseEntity.ok(product);
                 });
     }

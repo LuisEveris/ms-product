@@ -15,13 +15,13 @@ public class ProductTopicConfig {
 
     public static final String PRODUCT_TOPIC = "product-topic";
 
-    /*@Value("${spring.kafka.bootstrap-servers}")
-    private String bootstrapAddress;*/
+    @Value("${spring.kafka.bootstrap-servers}")
+    private String bootstrapAddress;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         return new KafkaAdmin(configs);
     }
 

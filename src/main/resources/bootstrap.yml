@@ -17,4 +17,4 @@ management:
       enabled: true
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 191.234.161.215:9092
