@@ -6,6 +6,7 @@ import com.bootcamp.msproduct.topic.ProductProducer;
 import com.bootcamp.msproduct.utils.AppUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class ProductController {
 
 //    @CircuitBreaker(name = "allProductFallBackMethod", fallbackMethod = "allProductFallBackMethod")
     @GetMapping(produces = MediaType.APPLICATION_NDJSON_VALUE)
+    @Cacheable(value = "itemCache")
     public Flux<ProductDTO> allProducts() {
         log.info("getting all products");
         return service.getAllProducts();
